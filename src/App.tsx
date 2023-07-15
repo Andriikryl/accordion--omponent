@@ -14,7 +14,9 @@ function App() {
   return (
     <div>
       <div className="accordion__container">
-        <div className="accordion__item">
+        <div
+          className={`accordion__item  ${opentAccordion === 0 ? "open" : ""}`}
+        >
           <div
             className="accordion__header"
             onClick={() => handelAccordionClick(0)}
@@ -41,7 +43,9 @@ function App() {
           </div>
         </div>
 
-        <div className="accordion__item">
+        <div
+          className={`accordion__item  ${opentAccordion === 1 ? "open" : ""}`}
+        >
           <div
             className="accordion__header"
             onClick={() => handelAccordionClick(1)}
@@ -68,7 +72,9 @@ function App() {
             </ul>
           </div>
         </div>
-        <div className="accordion__item">
+        <div
+          className={`accordion__item  ${opentAccordion === 2 ? "open" : ""}`}
+        >
           <div
             className="accordion__header"
             onClick={() => handelAccordionClick(3)}
