@@ -1,11 +1,24 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [opentAccordion, setOpenAccordio] = useState<null>(null);
+  const handelAccordionClick = (index) => {
+    console.log(opentAccordion, index);
+    if (index !== opentAccordion) {
+      setOpenAccordio(index);
+    } else {
+      setOpenAccordio(null);
+    }
+  };
   return (
     <div>
       <div className="accordion__container">
         <div className="accordion__item">
-          <div className="accordion__header">
+          <div
+            className="accordion__header"
+            onClick={() => handelAccordionClick(0)}
+          >
             <p className="accordion__number">01</p>
             <p className="accordion__name">The World's Tallest Building</p>
           </div>
@@ -29,7 +42,10 @@ function App() {
         </div>
 
         <div className="accordion__item">
-          <div className="accordion__header">
+          <div
+            className="accordion__header"
+            onClick={() => handelAccordionClick(1)}
+          >
             <p className="accordion__number">02</p>
             <p className="accordion__name">
               Famous Inventors and Their Inventions
@@ -53,7 +69,10 @@ function App() {
           </div>
         </div>
         <div className="accordion__item">
-          <div className="accordion__header">
+          <div
+            className="accordion__header"
+            onClick={() => handelAccordionClick(3)}
+          >
             <p className="accordion__number">03</p>
             <p className="accordion__name">Largest Deserts in the World</p>
           </div>
