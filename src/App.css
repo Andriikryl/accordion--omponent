@@ -60,9 +60,10 @@
   align-items: center;
   cursor: pointer;
   padding: 1rem 2rem;
+  transition: all 500ms ease-in-out;
 }
 .accordion__header:hover {
-  background: #e7eaed;
+  background: #4791db;
 }
 .accordion__number {
   font-size: 40px;
@@ -79,4 +80,22 @@
   font-size: 30px;
   padding: 1rem 2rem;
   list-style-type: circle;
+}
+
+.accordion__details {
+  overflow: hidden;
+  height: 0;
+}
+
+.open {
+  border-color: #087f5b;
+}
+
+.open .accordion__header,
+.open .accordion__number {
+  color: #087f5b;
+}
+
+.open .accordion__details {
+  height: auto;
 }
