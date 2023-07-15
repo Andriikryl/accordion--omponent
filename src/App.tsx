@@ -1,25 +1,61 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
-
+import { gsap } from "gsap";
 function App() {
-  const [opentAccordion, setOpenAccordio] = useState<null>(null);
-  const handelAccordionClick = (index) => {
-    console.log(opentAccordion, index);
-    if (index !== opentAccordion) {
-      setOpenAccordio(index);
+  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
+  const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const handleAccordionClick = (index: number) => {
+    const currentAccordionElement = accordionRefs.current[index]?.querySelector(
+      ".accordion__details"
+    );
+    if (index === openAccordion) {
+      if (currentAccordionElement) {
+        gsap.to(currentAccordionElement, {
+          height: 0,
+          duration: 1,
+          ease: "power1.inOut",
+          onComplete: () => setOpenAccordion(null),
+        });
+      }
     } else {
-      setOpenAccordio(null);
+      if (openAccordion !== null) {
+        const openAccordionElement = accordionRefs.current[
+          openAccordion
+        ]?.querySelector(".accordion__details");
+        if (openAccordionElement) {
+          gsap.to(openAccordionElement, {
+            height: 0,
+            duration: 1,
+            ease: "power1.inOut",
+          });
+        }
+      }
+      setOpenAccordion(index);
+      if (currentAccordionElement) {
+        gsap.fromTo(
+          currentAccordionElement,
+          { height: 0 },
+          {
+            height: "auto",
+            duration: 1,
+            ease: "power1.inOut",
+          }
+        );
+      }
     }
   };
+
   return (
-    <div>
+    <div className="App">
       <div className="accordion__container">
         <div
-          className={`accordion__item  ${opentAccordion === 0 ? "open" : ""}`}
+          className={`accordion__item  ${openAccordion === 0 ? "open" : ""}`}
+          ref={(el) => (accordionRefs.current[0] = el)}
         >
           <div
             className="accordion__header"
-            onClick={() => handelAccordionClick(0)}
+            onClick={() => handleAccordionClick(0)}
           >
             <p className="accordion__number">01</p>
             <p className="accordion__name">The World's Tallest Building</p>
@@ -44,11 +80,12 @@ function App() {
         </div>
 
         <div
-          className={`accordion__item  ${opentAccordion === 1 ? "open" : ""}`}
+          className={`accordion__item ${openAccordion === 1 ? "open" : ""}`}
+          ref={(el) => (accordionRefs.current[1] = el)}
         >
           <div
             className="accordion__header"
-            onClick={() => handelAccordionClick(1)}
+            onClick={() => handleAccordionClick(1)}
           >
             <p className="accordion__number">02</p>
             <p className="accordion__name">
@@ -73,11 +110,12 @@ function App() {
           </div>
         </div>
         <div
-          className={`accordion__item  ${opentAccordion === 2 ? "open" : ""}`}
+          className={`accordion__item ${openAccordion === 2 ? "open" : ""}`}
+          ref={(el) => (accordionRefs.current[2] = el)}
         >
           <div
             className="accordion__header"
-            onClick={() => handelAccordionClick(3)}
+            onClick={() => handleAccordionClick(2)}
           >
             <p className="accordion__number">03</p>
             <p className="accordion__name">Largest Deserts in the World</p>
@@ -106,5 +144,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
